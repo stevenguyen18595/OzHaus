@@ -1,22 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
-
-const fetchHousingData = async () => {
-  // This is a placeholder for government API integration
-  // In production, this would call the backend API which in turn calls government APIs
-  const response = await fetch('http://localhost:5000/api/housing/report');
-  if (!response.ok) {
-    throw new Error('Failed to fetch housing data');
-  }
-  return response.json();
-};
+import { useHousingData } from "../queries/queries";
 
 export default function HousingReport() {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['housingReport'],
-    queryFn: fetchHousingData,
-    retry: false,
-  });
-
+  const { data, isLoading, error } = useHousingData();
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -29,7 +14,9 @@ export default function HousingReport() {
     return (
       <div className="max-w-4xl mx-auto p-6">
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <h3 className="text-red-800 font-semibold mb-2">Error Loading Housing Data</h3>
+          <h3 className="text-red-800 font-semibold mb-2">
+            Error Loading Housing Data
+          </h3>
           <p className="text-red-600">{error.message}</p>
           <p className="text-sm text-gray-600 mt-2">
             Make sure the backend API is running on http://localhost:5000
@@ -46,42 +33,52 @@ export default function HousingReport() {
           OzHaus - Housing Report
         </h1>
         <p className="text-gray-600 mb-8">
-          Comprehensive housing insights powered by government data and AI analysis
+          Comprehensive housing insights powered by government data and AI
+          analysis
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {data?.properties?.map((property, index) => (
-            <div key={index} className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow">
+          {data?.Properties?.map((property, index) => (
+            <div
+              key={index}
+              className="bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                {property.address}
+                {property.Address}
               </h3>
               <div className="space-y-2">
                 <p className="text-gray-600">
-                  <span className="font-medium">Price:</span> ${property.price?.toLocaleString()}
+                  <span className="font-medium">Price:</span> $
+                  {property.Price?.toLocaleString()}
                 </p>
                 <p className="text-gray-600">
-                  <span className="font-medium">Type:</span> {property.type}
+                  <span className="font-medium">Type:</span> {property.Type}
                 </p>
                 <p className="text-gray-600">
-                  <span className="font-medium">Bedrooms:</span> {property.bedrooms}
+                  <span className="font-medium">Bedrooms:</span>{" "}
+                  {property.Bedrooms}
                 </p>
                 <p className="text-gray-600">
-                  <span className="font-medium">Bathrooms:</span> {property.bathrooms}
+                  <span className="font-medium">Bathrooms:</span>{" "}
+                  {property.Bathrooms}
                 </p>
               </div>
-              {property.aiInsights && (
+              {property.AiInsights && (
                 <div className="mt-4 pt-4 border-t border-gray-200">
-                  <p className="text-sm text-blue-600 font-medium mb-1">AI Insights:</p>
-                  <p className="text-sm text-gray-700">{property.aiInsights}</p>
+                  <p className="text-sm text-blue-600 font-medium mb-1">
+                    AI Insights:
+                  </p>
+                  <p className="text-sm text-gray-700">{property.AiInsights}</p>
                 </div>
               )}
             </div>
           ))}
         </div>
 
-        {(!data?.properties || data.properties.length === 0) && (
+        {(!data?.Properties || data.Properties.length === 0) && (
           <div className="text-center py-12">
-            <p className="text-gray-500">No housing data available at the moment.</p>
+            <p className="text-gray-500">
+              No housing data available at the moment.
+            </p>
           </div>
         )}
       </div>
