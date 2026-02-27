@@ -1,4 +1,4 @@
-import { useHousingData } from "../queries/queries";
+import { useHousingData } from "../apis/queries/queries";
 
 export default function HousingReport() {
   const { data, isLoading, error } = useHousingData();
@@ -74,7 +74,7 @@ export default function HousingReport() {
           ))}
         </div>
 
-        {(!data?.Properties || data.Properties.length === 0) && (
+        {(!data?.Properties || data.Properties.length == 0) && (
           <div className="text-center py-12">
             <p className="text-gray-500">
               No housing data available at the moment.

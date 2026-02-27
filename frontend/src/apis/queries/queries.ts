@@ -1,19 +1,14 @@
 import axios from "axios";
+import { axiosClient } from "../../lib/api/axios";
 import { useQuery } from "@tanstack/react-query";
-import { HousingReport } from "../types/models";
-
-// Configure axios instance
-const api = axios.create({
-  baseURL: "http://localhost:5000/api",
-  timeout: 10000,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+import { HousingReport } from "../../types/models";
+import { routes } from "../../modules/routing/routes";
 
 const fetchHousingData = async (): Promise<HousingReport> => {
   try {
-    const response = await api.get<HousingReport>("/housing/report");
+    const url = `${routes.api.report}`;
+    console.log("requesting:", (window.env?.baseUrl ?? "") + url);
+    const response = await axiosClient.get<HousingReport>(url);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -27,12 +22,13 @@ const fetchHousingData = async (): Promise<HousingReport> => {
 
 // React Query hook for housing data
 export const useHousingData = () => {
-  return useQuery<HousingReport>({
+  const { data, error, isLoading } = useQuery<HousingReport>({
     queryKey: ["housingReport"],
     queryFn: fetchHousingData,
     retry: 2,
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
+  return { data, error, isLoading };
 };
 
 // Export the fetch function if needed elsewhere

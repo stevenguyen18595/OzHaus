@@ -1,7 +1,5 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./index.css";
 import { App } from "../src/App";
 
@@ -12,21 +10,22 @@ declare global {
     };
   }
 }
+// initialise config before React initialises
+try {
+  const res = await fetch("./appsettings.json");
+  const json = await res.json();
+  window.env = {
+    baseUrl: json?.AppSettings?.Host ?? "",
+  };
+} catch (err) {
+  window.env = { baseUrl: "" };
+  console.error("Failed to load appsettings.json", err);
+}
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      retry: 1,
-    },
-  },
-});
+console.log("runtime baseUrl:", window.env.baseUrl);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <App />
   </StrictMode>,
 );
