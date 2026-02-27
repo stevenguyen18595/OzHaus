@@ -5,7 +5,7 @@ using OzHaus.Api.Services;
 namespace OzHaus.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/report")]
 public class HousingController : ControllerBase
 {
     private readonly ILogger<HousingController> _logger;
@@ -22,7 +22,7 @@ public class HousingController : ControllerBase
         _aiService = aiService;
     }
 
-    [HttpGet("report")]
+    [HttpGet()]
     public async Task<ActionResult<HousingReport>> GetReport()
     {
         try

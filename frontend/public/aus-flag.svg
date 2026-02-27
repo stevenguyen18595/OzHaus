@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480">
+  <rect width="640" height="480" fill="#00247d"/>
+  <g id="union-jack">
+    <rect width="320" height="160" fill="#00247d"/>
+    <g stroke="#fff" stroke-width="30">
+      <path d="M0,0 L320,160 M320,0 L0,160"/>
+      <path d="M160,0 V160 M0,80 H320"/>
+    </g>
+    <g stroke="#cf142b" stroke-width="20">
+      <path d="M0,0 L320,160 M320,0 L0,160"/>
+    </g>
+    <g stroke="#cf142b" stroke-width="10">
+      <path d="M160,0 V160 M0,80 H320"/>
+    </g>
+  </g>
+  <g id="stars" fill="#fff">
+    <g id="commonwealth-star">
+      <polygon points="320,60 332,100 374,100 340,124 352,164 320,140 288,164 300,124 266,100 308,100"/>
+    </g>
+    <g id="star-1">
+      <polygon points="540,60 546,78 566,78 550,90 556,108 540,96 524,108 530,90 514,78 534,78"/>
+    </g>
+    <g id="star-2">
+      <polygon points="600,180 606,198 626,198 610,210 616,228 600,216 584,228 590,210 574,198 594,198"/>
+    </g>
+    <g id="star-3">
+      <polygon points="540,300 546,318 566,318 550,330 556,348 540,336 524,348 530,330 514,318 534,318"/>
+    </g>
+    <g id="star-4">
+      <polygon points="600,420 606,438 626,438 610,450 616,468 600,456 584,468 590,450 574,438 594,438"/>
+    </g>
+    <g id="star-5">
+      <polygon points="480,420 486,438 506,438 490,450 496,468 480,456 464,468 470,450 454,438 474,438"/>
+    </g>
+  </g>
+</svg>

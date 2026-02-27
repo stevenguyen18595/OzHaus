@@ -13,6 +13,7 @@ frontend/.env.*.local
 
 # IDE
 .vscode/
+.vs/
 .idea/
 *.swp
 *.swo
